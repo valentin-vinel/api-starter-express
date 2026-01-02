@@ -3,14 +3,14 @@ import { sequelize } from "../../config/sequelize.js";
 import { AppUserAttributes, AppUserCreationAttributes } from "../@types/AppUser.interface.js";
 
 export class AppUser extends Model<AppUserAttributes, AppUserCreationAttributes> implements AppUserAttributes {
-  public id!: number;
-  public username!: string;
-  public email!: string;
-  public password!: string;
-  public role!: string;
+  declare id: number;
+  declare username: string;
+  declare email: string;
+  declare password: string;
+  declare role: string;
 
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 }
 
 AppUser.init(
@@ -37,5 +37,6 @@ AppUser.init(
 	{
 		sequelize,
 		tableName: "app_user",
+		schema: "public",
 	},
 );
