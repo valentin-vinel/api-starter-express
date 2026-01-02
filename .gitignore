@@ -1,0 +1,15 @@
+node_modules/
+
+dist/
+*.tsbuildinfo
+
+.env
+
+logs/
+*.log
+
+docker-compose.override.yml
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
