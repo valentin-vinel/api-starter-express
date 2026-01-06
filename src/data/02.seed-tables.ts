@@ -1,6 +1,7 @@
 import { AppUser } from "../app/models/app-user.model.js";
 import bcrypt from "bcrypt";
 import { sequelize } from "../config/sequelize.js";
+import { Ressource } from "../app/models/ressource.model.js";
 
 console.log("🌱 Seeding tables");
 
@@ -28,6 +29,36 @@ for (const appUser of appUsers) {
     }
   } catch (error) {
     console.log("Error with appuser:", appUser.username);
+		console.error(error);
+  }
+}
+
+// Ressource
+console.log("🚧 Seeding ressource data");
+const ressources = [
+    { title: 'Ressource 1', 
+      description: "Description de la première ressource.",
+      id_app_user: 1
+    },
+    { title: 'Ressource 2', 
+      description: "Description de la seconde ressource.",
+      id_app_user: 1
+    },
+    { title: 'Ressource 3',
+      description: "Description de la troisième ressource.",
+      id_app_user: 1
+    },
+]
+
+for (const ressource of ressources) {
+  try {
+    await Ressource.create({
+      title: ressource.title,
+      description: ressource.description,
+      id_app_user: ressource.id_app_user,
+    })
+  } catch (error) {
+    console.log("Error with ressource:", ressource.title);
 		console.error(error);
   }
 }

@@ -4,9 +4,13 @@
   "description": "",
   "main": "src/app/index.ts",
   "scripts": {
-    "dev": "npx tsc && node dist/index.js",
-    "db:create": "npx tsc && node dist/data/01.create-tables.js",
-    "db:seed": "npx tsc && node dist/data/02.seed-tables.js",
+    "clean": "node -e \"fs.rmSync('dist', {recursive:true, force:true})\"",
+    "build": "npm run clean && tsc",
+
+    "dev": "tsx watch src/app/index.ts",
+
+    "db:create": "tsx src/data/01.create-tables.ts",
+    "db:seed": "tsx src/data/02.seed-tables.ts",
     "db:reset": "npm run db:create && npm run db:seed"
   },
   "keywords": [],
@@ -30,7 +34,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.0.3",
     "nodemon": "^3.1.11",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }
