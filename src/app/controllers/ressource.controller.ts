@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Ressource } from "../models/ressource.model.js";
 import { idSchema } from "../schemas/id.schema.js";
+import { ressourceSchema } from "../schemas/ressource.schema.js";
 
 // Endpoint: Get all ressources
 export const listRessources = async(req: Request, res: Response) => {
@@ -30,4 +31,17 @@ export const getOneRessource = async(req: Request, res: Response) => {
         console.error("Error fetching ressource data : ", error)
         res.status(500).json({ error: "Failed to fetch ressource data."})
     }
+}
+
+// Endpoint: Create one ressource
+export const createOneRessource = async (req: Request, res: Response) => {
+  try {
+    const dataRessource = ressourceSchema.parse(req.body);
+    const newRessource = await Ressource.create(dataRessource);
+
+    res.status(201).json(newRessource);
+  } catch (error) {
+    console.error("Error while creating ressource : ", error)
+    res.status(500).json({ error: "Failed to create ressource."})
+  }
 }
