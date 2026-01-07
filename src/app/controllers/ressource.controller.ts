@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Ressource } from "../models/ressource.model.js";
 import { idSchema } from "../schemas/id.schema.js";
-import { ressourceSchema } from "../schemas/ressource.schema.js";
+import { ressourceSchema, updateRessourceSchema } from "../schemas/ressource.schema.js";
 
 // Endpoint: Get all ressources
 export const listRessources = async(req: Request, res: Response) => {
@@ -43,5 +43,35 @@ export const createOneRessource = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error while creating ressource : ", error)
     res.status(500).json({ error: "Failed to create ressource."})
+  }
+}
+
+// Endpoint: Update one ressource by id
+export async function updateOneRessourceById(req: Request, res: Response) {
+  try {
+    const { id } = idSchema.parse(req.params);
+    const data = updateRessourceSchema.parse(req.body);
+    const ressource = await Ressource.findByPk(id);
+
+    if (!ressource) {
+      return res.status(404).json({ message: "Ressource not found" });
+    };
+
+    const payload: Partial<{
+      title: string;
+      description: string;
+      idAppUser: number;
+    }> = {};
+
+    if (data.title !== undefined) payload.title = data.title;
+    if (data.description !== undefined) payload.description = data.description;
+    if (data.id_app_user !== undefined) payload.idAppUser = data.id_app_user;
+
+    await ressource.update(payload);
+
+    res.json(ressource);
+  } catch (error) {
+    console.error("Error while updating ressource : ", error)
+    res.status(500).json({ error: "Failed to update ressource."})
   }
 }
