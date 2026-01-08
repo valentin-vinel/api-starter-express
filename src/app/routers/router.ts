@@ -9,3 +9,6 @@ router.get('/users/:id', appUserController.getOneUser);
 
 router.get('/ressources', ressourceController.listRessources)
 router.get('/ressources/:id', ressourceController.getOneRessource)
+router.post('/ressources', ressourceController.createOneRessource)
+router.patch('/ressources/:id', ressourceController.updateOneRessourceById)
+router.delete('/ressources/:id', ressourceController.deleteOneRessourceById)
