@@ -2,14 +2,15 @@ import { AppUser } from "../app/models/app-user.model.js";
 import bcrypt from "bcrypt";
 import { sequelize } from "../config/sequelize.js";
 import { Project } from "../app/models/project.model.js";
+import { AppUserAttributes } from "../app/@types/AppUser.interface.js";
 
 console.log("🌱 Seeding tables");
 
 // AppUser
 console.log("🚧 Seeding app_user data");
-const appUsers = [
-    { username: 'admin', email: "admin@api-starter.dev", password: "password123", role: "admin"},
-    { username: 'john-doe', email: "john-doe@api-starter.dev", password: "password123", role: "user"}
+const appUsers: AppUserAttributes[] = [
+    { username: 'admin', email: "admin@api-starter.dev", password: "password123", role: "admin", is_active: true},
+    { username: 'john-doe', email: "john-doe@api-starter.dev", password: "password123", role: "user", is_active: true}
 ];
 
 let adminUser = null;
@@ -22,6 +23,7 @@ for (const appUser of appUsers) {
       email: appUser.email,
       password: password_hash,
       role: appUser.role,
+      is_active: appUser.is_active
     })
 
     if (appUser.email === "admin@api-starter.dev") {

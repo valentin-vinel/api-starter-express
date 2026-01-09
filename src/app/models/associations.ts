@@ -4,7 +4,7 @@ import { sequelize } from "../../config/sequelize.js";
 
 AppUser.hasMany(Project, {
     foreignKey: {
-        name:"id_app_user",
+        name:"owner_id",
         allowNull: false,
     },
     as: "ressources"
