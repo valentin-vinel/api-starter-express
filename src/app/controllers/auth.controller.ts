@@ -10,7 +10,9 @@ export async function login(req: Request, res: Response) {
 	try {
 		const { email, password } = loginSchema.parse(req.body);
 
-		const appUser = await AppUser.findOne({ where: { email } });
+		const appUser = await AppUser.scope("withPassword").findOne({ 
+            where: { email },
+        });
 		if (!appUser) {
 			return res.status(401).json({ error: "Email ou mot de passe incorrect" });
 		}
