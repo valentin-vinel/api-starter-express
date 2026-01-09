@@ -7,7 +7,7 @@ export class AppUser extends Model<AppUserAttributes, AppUserCreationAttributes>
   declare username: string;
   declare email: string;
   declare password: string;
-  declare role: string;
+  declare role: 'admin' | 'user';
   declare isActive: boolean;
 
   declare readonly createdAt: Date;
@@ -30,9 +30,9 @@ AppUser.init(
 			allowNull: false,
 		},
 		role: {
-			type: DataTypes.TEXT,
+			type: DataTypes.ENUM('admin', 'user'),
 			allowNull: false,
-			defaultValue: "user",
+			defaultValue: 'user',
 		},
 		isActive: {
 			type: DataTypes.BOOLEAN,
