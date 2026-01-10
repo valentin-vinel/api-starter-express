@@ -1,6 +1,7 @@
 import { Router } from "express";
 import * as appUserController from "../controllers/app-user.controller.js";
 import * as projectController from "../controllers/project.controller.js";
+import * as taskController from "../controllers/task.controller.js";
 import * as authController from "../controllers/auth.controller.js";
 
 export const router = Router();
@@ -14,5 +15,7 @@ router.post('/projects', projectController.createOneProject);
 router.patch('/projects/:id', projectController.updateOneProjectById);
 router.delete('/projects/:id', projectController.deleteOneProjectById);
 
+router.get('/tasks', taskController.listTasks);
+
 router.post('/login', authController.login);
-router.post('/register', authController.register)
+router.post('/register', authController.register);
