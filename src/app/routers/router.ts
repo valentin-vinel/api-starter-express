@@ -16,6 +16,7 @@ router.patch('/projects/:id', projectController.updateOneProjectById);
 router.delete('/projects/:id', projectController.deleteOneProjectById);
 
 router.get('/tasks', taskController.listTasks);
+router.get('/tasks/:id', taskController.getOneTask);
 
 router.post('/login', authController.login);
 router.post('/register', authController.register);
