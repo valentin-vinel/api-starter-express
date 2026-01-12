@@ -14,3 +14,21 @@ export const listTasks = async(req: Request, res: Response) => {
         res.status(500).json({ error: "Failed to fetch tasks data."})
     }
 }
+
+// Endpoint: Get one task
+export const getOneTask = async(req: Request, res: Response) => {
+    try {
+        const { id } = idSchema.parse(req.params);
+
+        const task = await Task.findByPk(id);
+
+        if (!task) {
+            return res.status(404).json({ message: "Task not found" });
+        };
+
+        res.json(task)
+    } catch (error) {
+        console.error("Error fetching task data : ", error)
+        res.status(500).json({ error: "Failed to fetch task data."})
+    }
+}
