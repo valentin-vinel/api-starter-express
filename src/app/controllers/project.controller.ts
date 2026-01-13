@@ -10,6 +10,7 @@ export const listProjects = async(req: Request, res: Response) => {
           include: [ 
             { association: "tasks",
               attributes: ["id", "title", "description", "status"],
+              required: false,
             },
             { 
               association: "owner",
@@ -30,7 +31,18 @@ export const getOneProject = async(req: Request, res: Response) => {
     try {
         const { id } = idSchema.parse(req.params);
 
-        const project = await Project.findByPk(id);
+        const project = await Project.findByPk(id, {
+          include: [ 
+            { association: "tasks",
+              attributes: ["id", "title", "description", "status"],
+              required: false,
+            },
+            { 
+              association: "owner",
+              attributes: ["id", "username"],
+            },
+          ],
+        });
 
         if (!project) {
             return res.status(404).json({ message: "Project not found" });
