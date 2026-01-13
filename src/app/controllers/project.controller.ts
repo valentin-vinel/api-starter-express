@@ -7,8 +7,16 @@ import { projectSchema, updateProjectSchema } from "../schemas/project.schema.js
 export const listProjects = async(req: Request, res: Response) => {
     try {
         const projects = await Project.findAll({
-          include: [ { association: "tasks" } ],
-        })
+          include: [ 
+            { association: "tasks",
+              attributes: ["id", "title", "description", "status"],
+            },
+            { 
+              association: "owner",
+              attributes: ["id", "username"],
+            },
+          ],
+        });
 
         res.status(200).json(projects);
     } catch (error) {
